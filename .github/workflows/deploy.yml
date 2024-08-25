@@ -16,8 +16,19 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v3
-      - name: Install, build, and upload your site
-        uses: withastro/action@v0
+      
+      - name: Install dependencies
+        run: |
+          npm install
+          npm install @astrojs/image sharp
+      
+      - name: Build site
+        run: npm run build
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: dist
 
   deploy:
     needs: build
