@@ -27,6 +27,9 @@ const whenExternalScripts = (items = []) =>
 export default defineConfig({
   output: 'static',
 
+  site: 'https://austingaskamp.github.io',
+  base: '/austingaskamp.github.io',
+
   integrations: [
     tailwind({
       applyBaseStyles: false,
