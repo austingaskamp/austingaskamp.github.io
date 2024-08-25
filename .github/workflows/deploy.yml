@@ -17,10 +17,15 @@ jobs:
       - name: Checkout your repository using git
         uses: actions/checkout@v3
       
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
       - name: Install dependencies
         run: |
           npm install
-          npm install @astrojs/image sharp
+          npm install sharp@latest
       
       - name: Build site
         run: npm run build

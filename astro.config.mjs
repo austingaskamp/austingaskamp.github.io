@@ -2,7 +2,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 import { defineConfig } from 'astro/config';
-import { squoosh } from '@astrojs/image';
+import image from '@astrojs/image';
 
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
@@ -76,12 +76,11 @@ export default defineConfig({
     astrowind({
       config: './src/config.yaml',
     }),
-  ],
 
-  image: {
-    service: squoosh(),
-    domains: ['cdn.pixabay.com'],
-  },
+    image({
+      serviceEntryPoint: '@astrojs/image/sharp'
+    }),
+  ],
 
   markdown: {
     remarkPlugins: [readingTimeRemarkPlugin],
