@@ -2,7 +2,6 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 import { defineConfig } from 'astro/config';
-import image from '@astrojs/image';
 
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
@@ -76,11 +75,12 @@ export default defineConfig({
     astrowind({
       config: './src/config.yaml',
     }),
-
-    image({
-      serviceEntryPoint: '@astrojs/image/sharp'
-    }),
   ],
+
+  image: {
+    service: { entrypoint: 'astro/assets/services/sharp' },
+    domains: ['cdn.pixabay.com'],
+  },
 
   markdown: {
     remarkPlugins: [readingTimeRemarkPlugin],
