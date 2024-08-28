@@ -1,0 +1,85 @@
+---
+import { Icon } from 'astro-icon';
+import Logo from '~/components/Logo.astro';
+import ToggleTheme from '~/components/common/ToggleTheme.astro';
+import ToggleMenu from '~/components/common/ToggleMenu.astro';
+
+import { getHomePermalink } from '~/utils/permalinks';
+import { headerData } from '~/navigation';
+
+const { 
+  links = [], 
+  actions = [], 
+  socialLinks = [], 
+  showToggleTheme = false, 
+  showRssFeed = false, 
+  position = 'right' 
+} = headerData;
+---
+
+<header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white dark:bg-slate-900 border-b dark:border-slate-800">
+  <div class="py-3 px-3 mx-auto w-full md:flex md:justify-between max-w-7xl md:px-4">
+    <div class="flex justify-between">
+      <a class="flex items-center" href={getHomePermalink()}>
+        <Logo />
+      </a>
+      <div class="flex items-center md:hidden">
+        <ToggleTheme />
+        <ToggleMenu />
+      </div>
+    </div>
+    <nav
+      class="items-center w-full md:w-auto hidden md:flex text-gray-600 dark:text-slate-200 h-screen md:h-auto"
+      aria-label="Main navigation"
+    >
+      <ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base">
+        {
+          links.map(({ text, href, links }) => (
+            <li>
+              <a
+                class="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out"
+                href={href}
+              >
+                {text}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="md:self-center flex items-center mb-4 md:mb-0 ml-2">
+        <div class="hidden items-center md:flex">
+          {showToggleTheme && <ToggleTheme iconClass="w-5 h-5" />}
+          
+          {socialLinks?.length ? (
+            <ul class="flex mb-0 md:order-1 -ml-2">
+              {socialLinks.map(({ ariaLabel, href, text, icon }) => (
+                <li>
+                  <a
+                    class="text-muted dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center"
+                    aria-label={ariaLabel}
+                    href={href}
+                  >
+                    {icon && <Icon name={icon} class="w-5 h-5" />}
+                    <Fragment set:html={text} />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            ''
+          )}
+        </div>
+      </div>
+    </nav>
+    <div class:list={[{ 'ml-auto': position === 'left' }, 'md:self-center flex items-center md:mb-0']}>
+      <div class="hidden items-center md:flex">
+        <a
+          href="https://app.yourdomain.com/login"
+          class="btn ml-2 py-2.5 px-5.5 md:px-6 font-semibold shadow-none text-sm btn-primary"
+        >
+          Login
+        </a>
+      </div>
+    </div>
+  </div>
+</header>

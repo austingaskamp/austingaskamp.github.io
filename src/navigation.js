@@ -23,6 +23,11 @@ export const headerData = {
     { ariaLabel: 'X', icon: 'tabler:brand-x', href: '#' },
     { ariaLabel: 'Instagram', icon: 'tabler:brand-instagram', href: '#' },
   ],
+  // Add this new property for the login button
+  loginButton: {
+    text: 'Login',
+    href: 'https://app.yourdomain.com/login',
+  },
 };
 
 export const footerData = {
